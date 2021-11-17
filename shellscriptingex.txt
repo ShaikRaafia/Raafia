@@ -1,0 +1,206 @@
+$ vi shaik.sh
+$ cat shaik.sh
+
+#!/bin/bash
+n=10
+if [ $n -lt 10 ];
+then
+echo "It is a one digit number"
+else
+echo "It is a two digit number"
+fi
+$ ./shaik.sh
+-bash: ./shaik.sh: Permission denied
+$ chmod u+x shaik.sh
+$ ./shaik.sh
+It is a two digit number
+$ 
+
+FOR LOOP EXAMPLE(1):
+$ vi shaik.sh
+$ cat shaik.sh
+#!/bin/bash
+# timestable - print out a multiplication table
+for i in 1 2 3 
+do
+for j in 1 2 3 
+do
+value='expr $i \* $j'
+echo -n "$value"
+done
+echo
+done
+$ ./shaik.sh
+OUTPUT:
+expr $i \* $jexpr $i \* $jexpr $i \* $j
+expr $i \* $jexpr $i \* $jexpr $i \* $j
+expr $i \* $jexpr $i \* $jexpr $i \* $j
+
+FORLOOP EXAMPLE(2):
+$ vi forloop.sh
+$ vi forloop2.sh
+$ cat forloop2.sh
+#!/bin/bash
+# file-poke - tell us stuff about files
+files= 'ls'
+for i in $files
+do
+echo -n "$i"
+grep $i $i
+done
+$ ./forloop2.sh
+OUTPUT:
+forloop2.sh  forloop.sh  shaik.sh
+
+FOR LOOP EXAMPLE(3):
+$ vi forloop3.sh
+$ cat forloop3.sh
+#!/bin/bash
+# file-poke - tell us stuff about files
+for i in *; do
+echo -n "$i"
+grep $i $i
+done
+$ chmod u+x forloop3.sh
+$ ./forloop3.sh
+OUTPUT:
+forloop2.shforloop3.shforloop.shshaik.sh$
+
+
+
+
+IF AND ELSE:
+$ vi ifelse2.sh
+$ cat ifelse2.sh
+if grep "UNIX" myfile >/dev/null
+then
+echo UNIX occurs in myfile
+else
+echo No!
+echo UNIX does not occur in myfile
+fi
+$ ./ifelse2.sh
+-bash: ./ifelse2.sh: Permission denied
+$ chmod u+x ifelse2.sh
+$ ./ifelse2.sh
+OUTPUT:
+grep: myfile: No such file or directory
+No!
+UNIX does not occur in myfile
+
+IF ELIF:
+$ vi ifelif.sh
+$ cat ifelif.sh
+if grep "UNIX" myfile ./dev/null
+then
+echo "UNIX occurs in file"
+elif grep "DOS" myfile ./dev/null
+then
+echo "Unix does not occur, but DOS does"
+else
+echo "Nobody is there"
+fi
+$ chmod u+x ifelif.sh
+$ ./ifelif.sh
+OUTPUT:
+grep: myfile: No such file or directory
+grep: ./dev/null: No such file or directory
+grep: myfile: No such file or directory
+grep: ./dev/null: No such file or directory
+Nobody is there
+
+USE OF COLON:
+$ vi ifelse.sh
+$ cat ifelse.sh
+#!/bin/bash
+if grep unix myfile
+then
+:
+else
+echo "sorry, unix was not found"
+fi
+$ chmod u+x ifelse.sh
+$ ./ifelse.sh
+OUTPUT:
+grep: myfile: No such file or directory
+sorry, unix was not found
+
+THE TEST COMMANDS - FILETESTS:
+$ vi filetest.sh
+$ cat filetest.sh
+#!/bin/bash
+count=0
+for i in *; do
+if test -x $i; then
+count='expr $count + 1'
+fi
+done
+echo total of $count files executable
+$ ./filetest.sh
+OUTPUT:
+total of expr $count + 1 files executable
+
+THE STRING TEST:
+$ vi stringtest.sh
+$ cat stringtest.sh
+if test -z $REMOTEHOST
+then
+:
+else
+DISPLAY="REMOTEHOST:0"
+export DISPLAY
+fi
+
+$ chmod u+x stringtest.sh
+$ ./stringtest.sh
+$ 
+
+INTEGER TEST:
+$ vi integertest.sh
+$ cat integertest.sh
+#!/bin/bash
+smallest=10000
+for i in 5 8 19 8 7 3; do
+if test $i -lt $smallest;then
+smallest=$i
+fi
+done
+echo $smallest
+$ chmod u+x integertest.sh
+$ ./integertest.sh
+OUTPUT:
+3
+
+USE OF []:
+$ vi shaik.sh
+$ cat shaik.sh
+#!/bin/bash
+smallest=10000
+for i in 5 8 19 8 7 3; do
+if [ $i -lt $smallest ]; then
+smallest=$i
+fi
+done
+echo $smallest
+$ ./shaik.sh
+-bash: ./shaik.sh: Permission denied
+$ chmod u+x shaik.sh
+$ ./shaik.sh
+OUTPUT:
+3
+
+THE WHILE LOOP:
+$ vi whileloop.sh
+$ cat whileloop.sh
+#!/bin/bash
+i=1
+sum=0
+while [ $i -le 100 ]; do
+sum='expr $sum + $i'
+i='expr $i + 1'
+done
+echo The sum is $sum
+$ ./whileloop.sh
+OUTPUT:
+./whileloop.sh: line 4: [: too many arguments
+The sum is expr $sum + $i
